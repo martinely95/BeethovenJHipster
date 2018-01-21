@@ -1,0 +1,16 @@
+entity MelodyEntity {
+	name String required,
+	content String,
+    createdDateTime ZonedDateTime required,
+}
+relationship OneToMany {
+	User{melodyEntities} to MelodyEntity{user}
+}
+
+// Set pagination options
+paginate MelodyEntity with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
