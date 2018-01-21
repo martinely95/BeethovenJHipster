@@ -3,8 +3,16 @@ entity MelodyEntity {
 	content String,
     createdDateTime ZonedDateTime required,
 }
+
+entity Profile {
+}
+
+relationship OneToOne {
+	Profile{user} to User{profile}
+}
+
 relationship OneToMany {
-	User{melodyEntities} to MelodyEntity{user}
+	Profile{melodyEntities} to MelodyEntity{profile}
 }
 
 // Set pagination options
