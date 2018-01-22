@@ -1,22 +1,64 @@
- <html>
-    <body onload="init()">
-        <p id="xcoord"></p>
-        <p id="ycoord"></p>
-        <canvas id="can" style="position:absolute;top:10%;left:10%;"></canvas>
-        <div style="position:absolute;top:12%;left:43%;">Choose Color</div>
-        <div style="position:absolute;top:15%;left:45%;width:10px;height:10px;background:green;" id="green" onclick="color(this)"></div>
-        <div style="position:absolute;top:15%;left:46%;width:10px;height:10px;background:blue;" id="blue" onclick="color(this)"></div>
-        <div style="position:absolute;top:15%;left:47%;width:10px;height:10px;background:red;" id="red" onclick="color(this)"></div>
-        <div style="position:absolute;top:17%;left:45%;width:10px;height:10px;background:yellow;" id="yellow" onclick="color(this)"></div>
-        <div style="position:absolute;top:17%;left:46%;width:10px;height:10px;background:orange;" id="orange" onclick="color(this)"></div>
-        <div style="position:absolute;top:17%;left:47%;width:10px;height:10px;background:black;" id="black" onclick="color(this)"></div>
-        <div style="position:absolute;top:20%;left:43%;">Eraser</div>
-        <div style="position:absolute;top:22%;left:45%;width:15px;height:15px;background:white;border:2px solid;" id="white" onclick="color(this)"></div>
-        <img id="canvasimg" style="position:absolute;top:10%;left:52%;" style="display:none;">
-        <input type="button" value="save" id="btn" size="30" onclick="save()" style="position:absolute;top:55%;left:10%;">
-        <input type="button" value="clear" id="clr" size="23" onclick="erase()" style="position:absolute;top:55%;left:15%;">
-    </body>
-        <script type="text/javascript">
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+<head>
+    <base href="./" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Beethoven</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="manifest" href="manifest.webapp" />
+    <!-- jhipster-needle-add-resources-to-root - JHipster will add new resources here -->
+</head>
+<body onload="init()">
+
+
+    <!--[if lt IE 9]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <jhi-main></jhi-main>
+    <noscript>
+        <h1>You must enable javascript to view this page.</h1>
+    </noscript>
+    <!-- uncomment this for adding service worker
+        <script>
+            if ('serviceWorker' in navigator) {
+                 navigator.serviceWorker
+                    .register('./sw.js')
+                    .then(function() { console.log('Service Worker Registered'); });
+            }
+        </script>
+    -->
+    <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
+    <script>
+        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+        ga('create','UA-XXXXX-X');ga('send','pageview');
+    </script>-->
+
+
+    <p id="xcoord"></p>
+    <p id="ycoord"></p>
+    <canvas id="can" style="position:absolute;top:10%;left:20%; border: solid black 1px;"></canvas>
+    <div style="position:absolute;top:12%;left:53%;">Choose Color</div>
+    <div style="position:absolute;top:15%;left:55%;width:10px;height:10px;background:green;" id="green" onclick="color(this)"></div>
+    <div style="position:absolute;top:15%;left:56%;width:10px;height:10px;background:blue;" id="blue" onclick="color(this)"></div>
+    <div style="position:absolute;top:15%;left:57%;width:10px;height:10px;background:red;" id="red" onclick="color(this)"></div>
+    <div style="position:absolute;top:17%;left:55%;width:10px;height:10px;background:yellow;" id="yellow" onclick="color(this)"></div>
+    <div style="position:absolute;top:17%;left:56%;width:10px;height:10px;background:orange;" id="orange" onclick="color(this)"></div>
+    <div style="position:absolute;top:17%;left:57%;width:10px;height:10px;background:black;" id="black" onclick="color(this)"></div>
+    <div style="position:absolute;top:20%;left:53%;">Eraser</div>
+    <div style="position:absolute;top:22%;left:55%;width:15px;height:15px;background:white;border:2px solid;" id="white" onclick="color(this)"></div>
+    <img id="canvasimg" style="position:absolute;top:10%;left:62%;display:none; border: solid black 1px;"">
+    <input type="button" value="save" id="btn" size="30" onclick="save()" style="position:absolute;top:55%;left:20%;">
+    <input type="button" value="clear" id="clr" size="23" onclick="erase()" style="position:absolute;top:55%;left:35%;">
+
+<script type="text/javascript">
     var WIDTH = 600;
     var HEIGHT = 400;
     var ROWS = 6;
@@ -35,14 +77,14 @@
     PointForColors[x] = [];
     for (var i = 0 ; i < ROWS ; i++) {
         PointForColors[x][i] = [];
-            for(var j = 0; j < COLS ; j++) {
-                PointForColors[x][i][j] = false;
-            }
+        for(var j = 0; j < COLS ; j++) {
+            PointForColors[x][i][j] = false;
+        }
     }
 
     var Xelem = document.getElementById('xcoord');
     var Yelem = document.getElementById('ycoord');
-    
+
     function init() {
         canvas = document.getElementById('can');
         ctx = canvas.getContext("2d");
@@ -50,7 +92,7 @@
         canvas.height = HEIGHT;
         w = canvas.width;
         h = canvas.height;
-    
+
         canvas.addEventListener("mousemove", function (e) {
             findxy('move', e);
             if(mouseDown) {
@@ -59,8 +101,8 @@
         }, false);
         canvas.addEventListener("mousedown", function (e) {
             mouseDown = true;
-                findxy('down', e);
-                getWhichNode(currX, currY);
+            findxy('down', e);
+            getWhichNode(currX, currY);
         }, false);
         canvas.addEventListener("mouseup", function (e) {
             mouseDown = false;
@@ -107,7 +149,7 @@
             }
         }
     }
-    
+
     function draw() {
         ctx.beginPath();
         ctx.moveTo(prevX, prevY);
@@ -117,7 +159,7 @@
         ctx.stroke();
         ctx.closePath();
     }
-    
+
     function erase() {
         var m = confirm("Want to clear");
         if (m) {
@@ -125,7 +167,7 @@
             document.getElementById("canvasimg").style.display = "none";
         }
     }
-    
+
     function save() {
         //document.getElementById("canvasimg").style.border = "2px solid";
         var dataURL = canvas.toDataURL();
@@ -134,23 +176,37 @@
         sendData();
     }
 
+    function getCSRF() {
+        var name = "XSRF-TOKEN=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1);
+            if (c.indexOf(name) !== -1) return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+
     function sendData() {
         var xhr = new XMLHttpRequest();
-        var url = "/Beathoven/data";
+        var url = "/api/beathoven/post";
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-type", "application/json");
+        xhr.setRequestHeader("X-XSRF-TOKEN", getCSRF());
+
+
         var data = JSON.stringify(PointForColors);
         xhr.send(data);
         console.log(JSON.parse(JSON.stringify(PointForColors)));
     }
-    
+
     function findxy(res, e) {
         if (res == 'down') {
             prevX = currX;
             prevY = currY;
             currX = e.clientX - canvas.offsetLeft;
             currY = e.clientY - canvas.offsetTop;
-    
+
             flag = true;
             dot_flag = true;
             if (dot_flag) {
@@ -184,5 +240,6 @@
         Yelem.innerHTML = nodeInRow;
         PointForColors[x][nodeInRow][nodeInCol] = true;
     }
-    </script>
-    </html>
+</script>
+</body>
+</html>
