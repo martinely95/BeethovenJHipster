@@ -1,10 +1,11 @@
 package kmdm.beethoven.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-
 import kmdm.beethoven.domain.PersistentToken;
-import kmdm.beethoven.repository.PersistentTokenRepository;
+import kmdm.beethoven.domain.Profile;
 import kmdm.beethoven.domain.User;
+import kmdm.beethoven.repository.PersistentTokenRepository;
+import kmdm.beethoven.repository.ProfileRepository;
 import kmdm.beethoven.repository.UserRepository;
 import kmdm.beethoven.security.SecurityUtils;
 import kmdm.beethoven.service.MailService;
@@ -13,18 +14,19 @@ import kmdm.beethoven.service.dto.UserDTO;
 import kmdm.beethoven.web.rest.errors.*;
 import kmdm.beethoven.web.rest.vm.KeyAndPasswordVM;
 import kmdm.beethoven.web.rest.vm.ManagedUserVM;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * REST controller for managing the current user's account.
@@ -42,6 +44,9 @@ public class AccountResource {
     private final MailService mailService;
 
     private final PersistentTokenRepository persistentTokenRepository;
+
+    @Inject
+    private ProfileRepository profileRepository;
 
     public AccountResource(UserRepository userRepository, UserService userService, MailService mailService, PersistentTokenRepository persistentTokenRepository) {
 
@@ -69,7 +74,10 @@ public class AccountResource {
         userRepository.findOneByLogin(managedUserVM.getLogin().toLowerCase()).ifPresent(u -> {throw new LoginAlreadyUsedException();});
         userRepository.findOneByEmailIgnoreCase(managedUserVM.getEmail()).ifPresent(u -> {throw new EmailAlreadyUsedException();});
         User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
-        mailService.sendActivationEmail(user);
+        Profile newProfile = new Profile();
+        newProfile.setUser(user);
+        profileRepository.save(newProfile);
+//        mailService.sendActivationEmail(user);
     }
 
     /**
