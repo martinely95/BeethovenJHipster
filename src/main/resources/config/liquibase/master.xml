@@ -11,4 +11,5 @@
     <include file="config/liquibase/changelog/20180121141945_added_entity_constraints_MelodyEntity.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180121141946_added_entity_constraints_Profile.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    <include file="config/liquibase/changelog/20180123222103_extend_size_of_melody_content.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

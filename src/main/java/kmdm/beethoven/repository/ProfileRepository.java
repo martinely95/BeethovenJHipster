@@ -1,9 +1,10 @@
 package kmdm.beethoven.repository;
 
 import kmdm.beethoven.domain.Profile;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import org.springframework.data.jpa.repository.*;
+import java.util.Optional;
 
 
 /**
@@ -13,4 +14,5 @@ import org.springframework.data.jpa.repository.*;
 @Repository
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
 
+    Optional<Profile> findOneByUserId(Long userId);
 }

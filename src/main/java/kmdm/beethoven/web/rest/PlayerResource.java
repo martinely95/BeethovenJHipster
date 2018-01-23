@@ -1,7 +1,12 @@
 package kmdm.beethoven.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import kmdm.beethoven.domain.Profile;
+import kmdm.beethoven.domain.User;
+import kmdm.beethoven.repository.ProfileRepository;
 import kmdm.beethoven.service.MelodyEntityService;
+import kmdm.beethoven.service.UserService;
+import kmdm.beethoven.service.dto.MelodyEntityDTO;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,11 +14,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
+import javax.inject.Inject;
 import javax.sound.midi.MidiUnavailableException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * REST controller for managing MelodyEntity.
@@ -26,7 +36,15 @@ public class PlayerResource {
 
     private static final String ENTITY_NAME = "melodyEntity";
 
+    private static final ZonedDateTime DEFAULT_CREATED_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+
     private final MelodyEntityService melodyEntityService;
+
+    @Inject
+    UserService userService;
+
+    @Inject
+    ProfileRepository profileRepository;
 
     public PlayerResource(MelodyEntityService melodyEntityService) {
         this.melodyEntityService = melodyEntityService;
@@ -46,6 +64,32 @@ public class PlayerResource {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    @PostMapping("/beathoven/saveInDB")
+    @Timed
+    public void persistMelodyEntity(@RequestBody String json) throws URISyntaxException, JSONException {
+
+        Optional<User> userOptional = userService.getUserWithAuthorities();
+        Optional<Profile> profileOptional;
+        if (userOptional.isPresent()) {
+            profileOptional = profileRepository.findOneByUserId(userOptional.get().getId());
+        } else {
+            return;
+        }
+
+        Profile profile = null;
+        if (profileOptional.isPresent()) {
+            profile = profileOptional.get();
+        }
+
+        MelodyEntityDTO melodyEntity = new MelodyEntityDTO();
+        melodyEntity.setName(ENTITY_NAME);
+        melodyEntity.setContent(json);
+        melodyEntity.setProfileId(profile.getId());
+        melodyEntity.setCreatedDateTime(DEFAULT_CREATED_DATE_TIME);
+
+        melodyEntityService.save(melodyEntity);
     }
 
     /**

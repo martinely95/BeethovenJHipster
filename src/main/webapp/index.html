@@ -55,8 +55,9 @@
     <div style="position:absolute;top:20%;left:53%;">Eraser</div>
     <div style="position:absolute;top:22%;left:55%;width:15px;height:15px;background:white;border:2px solid;" id="white" onclick="color(this)"></div>
     <img id="canvasimg" style="position:absolute;top:10%;left:62%;display:none; border: solid black 1px;"">
-    <input type="button" value="save" id="btn" size="30" onclick="save()" style="position:absolute;top:55%;left:20%;">
-    <input type="button" value="clear" id="clr" size="23" onclick="erase()" style="position:absolute;top:55%;left:35%;">
+    <input type="button" value="Play" id="btn" size="30" onclick="save()" style="position:absolute;top:55%;left:20%;">
+    <input type="button" value="Save" id="save_btn" size="30" onclick="saveInDB()" style="position:absolute;top:55%;left:27%;">
+    <input type="button" value="Clear" id="clr" size="23" onclick="erase()" style="position:absolute;top:55%;left:35%;">
 
 <script type="text/javascript">
     var WIDTH = 600;
@@ -174,6 +175,17 @@
         document.getElementById("canvasimg").src = dataURL;
         document.getElementById("canvasimg").style.display = "inline";
         sendData();
+    }
+
+    function saveInDB() {
+        var xhr = new XMLHttpRequest();
+        var url = "/api/beathoven/saveInDB";
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.setRequestHeader("X-XSRF-TOKEN", getCSRF());
+
+        var data = JSON.stringify(PointForColors);
+        xhr.send(data);
     }
 
     function getCSRF() {
