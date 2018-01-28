@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { SERVER_API_URL } from '../../app.constants';
+import { SERVER_API_URL } from '../../../app.constants';
 
 import { JhiDateUtils } from 'ng-jhipster';
 
-import { MelodyEntity } from './melody-entity.model';
-import { ResponseWrapper, createRequestOption } from '../../shared';
+import { MelodyEntity } from '../models/melody-entity.model';
+import { ResponseWrapper, createRequestOption } from '../../../shared/index';
 
 @Injectable()
 export class MelodyEntityService {

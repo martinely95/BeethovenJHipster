@@ -4,8 +4,8 @@ import { MockBackend } from '@angular/http/testing';
 import { ConnectionBackend, RequestOptions, BaseRequestOptions, Http, Response, ResponseOptions } from '@angular/http';
 import { JhiDateUtils } from 'ng-jhipster';
 
-import { MelodyEntityService } from '../../../../../../main/webapp/app/entities/melody-entity/melody-entity.service';
-import { MelodyEntity } from '../../../../../../main/webapp/app/entities/melody-entity/melody-entity.model';
+import { MelodyEntityService } from '../../../../../../main/webapp/app/entities/melody-entity/services/melody-entity.service';
+import { MelodyEntity } from '../../../../../../main/webapp/app/entities/melody-entity/models/melody-entity.model';
 import { SERVER_API_URL } from '../../../../../../main/webapp/app/app.constants';
 
 describe('Service Tests', () => {

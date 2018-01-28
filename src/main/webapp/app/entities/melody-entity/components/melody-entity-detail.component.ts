@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { MelodyEntity } from './melody-entity.model';
-import { MelodyEntityService } from './melody-entity.service';
+import { MelodyEntity } from '../models/melody-entity.model';
+import { MelodyEntityService } from '../services/melody-entity.service';
 
 @Component({
     selector: 'jhi-melody-entity-detail',

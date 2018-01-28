@@ -6,11 +6,11 @@ import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
-import { MelodyEntity } from './melody-entity.model';
-import { MelodyEntityPopupService } from './melody-entity-popup.service';
-import { MelodyEntityService } from './melody-entity.service';
-import { Profile, ProfileService } from '../profile';
-import { ResponseWrapper } from '../../shared';
+import { MelodyEntity } from '../models/melody-entity.model';
+import { MelodyEntityPopupService } from '../services/melody-entity-popup.service';
+import { MelodyEntityService } from '../services/melody-entity.service';
+import { Profile, ProfileService } from '../../profile/index';
+import { ResponseWrapper } from '../../../shared/index';
 
 @Component({
     selector: 'jhi-melody-entity-dialog',

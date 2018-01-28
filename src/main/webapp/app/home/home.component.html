@@ -3,39 +3,45 @@
         <span class="hipster img-fluid rounded"></span>
     </div>
     <div class="col-md-9">
-        <!--<h1 class="display-4">Welcome, Java Hipster!</h1>-->
-        <!--<p class="lead">This is your homepage</p>-->
+        <div class="col-md-12">
 
-        <!--<div [ngSwitch]="isAuthenticated()">-->
-            <!--<div class="alert alert-success" *ngSwitchCase="true">-->
-                <!--<span *ngIf="account"-->
-                   <!--&gt; You are logged in as user "{{account.login}}". </span>-->
-            <!--</div>-->
+            <div class="col-md-12">
+                <canvas id="can"
+                        style="border: solid black 1px;"
+                        (mouseup)="mouseUpEvent($event)"
+                        (mousedown)="mouseDownEvent($event)"
+                        (mousemove)="mouseMoveEvent($event)"
+                        (mouseout)="mouseOutEvent($event)"></canvas>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div>Choose Color: </div>
+                    <div style="width:20px;height:20px;background:green;" id="green"
+                         (click)="color($event)"></div>
+                    <div style="width:20px;height:20px;background:blue;" id="blue"
+                         (click)="color($event)"></div>
+                    <div style="width:20px;height:20px;background:red;" id="red"
+                         (click)="color($event)"></div>
+                    <div style="width:20px;height:20px;background:yellow;" id="yellow"
+                         (click)="color($event)"></div>
+                    <div style="width:20px;height:20px;background:orange;" id="orange"
+                         (click)="color($event)"></div>
+                    <div style="width:20px;height:20px;background:black;" id="black"
+                         (click)="color($event)"></div>
+                </div>
+                <div class="row">
+                    <div>Eraser</div>
+                    <div style="width:20px;height:20px;background:white;border:2px solid;"
+                         id="white" (click)="color($event)"></div>
+                </div>
+                <div class="row">
+                    <input type="button" value="Play" id="btn" size="30" (click)="save()">
+                    <input type="button" value="Save" id="save_btn" size="30" (click)="saveInDB()">
+                    <input type="button" value="Clear" id="clr" size="23" (click)="erase()">
+                </div>
+                <!--<img id="canvasimg" style="border: solid black 1px;"/>-->
 
-            <!--<div class="alert alert-warning" *ngSwitchCase="false">-->
-                <!--<span>If you want to </span>-->
-                <!--<a class="alert-link" (click)="login()">sign in</a><span>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").</span>-->
-            <!--</div>-->
-            <!--<div class="alert alert-warning" *ngSwitchCase="false">-->
-                <!--<span>You don't have an account yet?</span>-->
-                <!--<a class="alert-link" routerLink="register">Register a new account</a>-->
-            <!--</div>-->
-        <!--</div>-->
-
-        <!--<p>-->
-            <!--If you have any question on JHipster:-->
-        <!--</p>-->
-
-        <!--<ul>-->
-            <!--<li><a href="http://www.jhipster.tech/" target="_blank" rel="noopener">JHipster homepage</a></li>-->
-            <!--<li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener">JHipster on Stack Overflow</a></li>-->
-            <!--<li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener">JHipster bug tracker</a></li>-->
-            <!--<li><a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener">JHipster public chat room</a></li>-->
-            <!--<li><a href="https://twitter.com/java_hipster" target="_blank" rel="noopener">follow @java_hipster on Twitter</a></li>-->
-        <!--</ul>-->
-
-        <!--<p>-->
-            <!--<span>If you like JHipster, don't forget to give us a star on</span> <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener">GitHub</a>!-->
-        <!--</p>-->
+            </div>
+        </div>
     </div>
 </div>

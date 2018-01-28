@@ -4,9 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { MelodyEntity } from './melody-entity.model';
-import { MelodyEntityPopupService } from './melody-entity-popup.service';
-import { MelodyEntityService } from './melody-entity.service';
+import { MelodyEntity } from '../models/melody-entity.model';
+import { MelodyEntityPopupService } from '../services/melody-entity-popup.service';
+import { MelodyEntityService } from '../services/melody-entity.service';
 
 @Component({
     selector: 'jhi-melody-entity-delete-dialog',

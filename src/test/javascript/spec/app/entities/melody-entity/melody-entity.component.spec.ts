@@ -4,9 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import { Headers } from '@angular/http';
 
 import { BeethovenTestModule } from '../../../test.module';
-import { MelodyEntityComponent } from '../../../../../../main/webapp/app/entities/melody-entity/melody-entity.component';
-import { MelodyEntityService } from '../../../../../../main/webapp/app/entities/melody-entity/melody-entity.service';
-import { MelodyEntity } from '../../../../../../main/webapp/app/entities/melody-entity/melody-entity.model';
+import { MelodyEntityComponent } from '../../../../../../main/webapp/app/entities/melody-entity/components/melody-entity.component';
+import { MelodyEntityService } from '../../../../../../main/webapp/app/entities/melody-entity/services/melody-entity.service';
+import { MelodyEntity } from '../../../../../../main/webapp/app/entities/melody-entity/models/melody-entity.model';
 
 describe('Component Tests', () => {
 

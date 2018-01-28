@@ -5,8 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { BeethovenTestModule } from '../../../test.module';
-import { MelodyEntityDeleteDialogComponent } from '../../../../../../main/webapp/app/entities/melody-entity/melody-entity-delete-dialog.component';
-import { MelodyEntityService } from '../../../../../../main/webapp/app/entities/melody-entity/melody-entity.service';
+import { MelodyEntityDeleteDialogComponent } from '../../../../../../main/webapp/app/entities/melody-entity/components/melody-entity-delete-dialog.component';
+import { MelodyEntityService } from '../../../../../../main/webapp/app/entities/melody-entity/services/melody-entity.service';
 
 describe('Component Tests', () => {
 

@@ -3,9 +3,9 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 
 import { BeethovenTestModule } from '../../../test.module';
-import { MelodyEntityDetailComponent } from '../../../../../../main/webapp/app/entities/melody-entity/melody-entity-detail.component';
-import { MelodyEntityService } from '../../../../../../main/webapp/app/entities/melody-entity/melody-entity.service';
-import { MelodyEntity } from '../../../../../../main/webapp/app/entities/melody-entity/melody-entity.model';
+import { MelodyEntityDetailComponent } from '../../../../../../main/webapp/app/entities/melody-entity/components/melody-entity-detail.component';
+import { MelodyEntityService } from '../../../../../../main/webapp/app/entities/melody-entity/services/melody-entity.service';
+import { MelodyEntity } from '../../../../../../main/webapp/app/entities/melody-entity/models/melody-entity.model';
 
 describe('Component Tests', () => {
 

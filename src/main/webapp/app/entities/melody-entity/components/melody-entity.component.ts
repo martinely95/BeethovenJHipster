@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { MelodyEntity } from './melody-entity.model';
-import { MelodyEntityService } from './melody-entity.service';
-import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
+import { MelodyEntity } from '../models/melody-entity.model';
+import { MelodyEntityService } from '../services/melody-entity.service';
+import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../../shared/index';
 
 @Component({
     selector: 'jhi-melody-entity',

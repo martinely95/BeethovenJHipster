@@ -3,10 +3,10 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@a
 import { JhiPaginationUtil } from 'ng-jhipster';
 
 import { UserRouteAccessService } from '../../shared';
-import { MelodyEntityComponent } from './melody-entity.component';
-import { MelodyEntityDetailComponent } from './melody-entity-detail.component';
-import { MelodyEntityPopupComponent } from './melody-entity-dialog.component';
-import { MelodyEntityDeletePopupComponent } from './melody-entity-delete-dialog.component';
+import { MelodyEntityComponent } from './components/melody-entity.component';
+import { MelodyEntityDetailComponent } from './components/melody-entity-detail.component';
+import { MelodyEntityPopupComponent } from './components/melody-entity-dialog.component';
+import { MelodyEntityDeletePopupComponent } from './components/melody-entity-delete-dialog.component';
 
 @Injectable()
 export class MelodyEntityResolvePagingParams implements Resolve<any> {

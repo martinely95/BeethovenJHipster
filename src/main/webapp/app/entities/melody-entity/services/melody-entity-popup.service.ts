@@ -2,7 +2,7 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
-import { MelodyEntity } from './melody-entity.model';
+import { MelodyEntity } from '../models/melody-entity.model';
 import { MelodyEntityService } from './melody-entity.service';
 
 @Injectable()

@@ -5,9 +5,9 @@ import { Observable } from 'rxjs/Observable';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { BeethovenTestModule } from '../../../test.module';
-import { MelodyEntityDialogComponent } from '../../../../../../main/webapp/app/entities/melody-entity/melody-entity-dialog.component';
-import { MelodyEntityService } from '../../../../../../main/webapp/app/entities/melody-entity/melody-entity.service';
-import { MelodyEntity } from '../../../../../../main/webapp/app/entities/melody-entity/melody-entity.model';
+import { MelodyEntityDialogComponent } from '../../../../../../main/webapp/app/entities/melody-entity/components/melody-entity-dialog.component';
+import { MelodyEntityService } from '../../../../../../main/webapp/app/entities/melody-entity/services/melody-entity.service';
+import { MelodyEntity } from '../../../../../../main/webapp/app/entities/melody-entity/models/melody-entity.model';
 import { ProfileService } from '../../../../../../main/webapp/app/entities/profile';
 
 describe('Component Tests', () => {
