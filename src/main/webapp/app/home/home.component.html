@@ -5,39 +5,47 @@
     <div class="col-md-9">
         <div class="col-md-12">
 
-            <div class="col-md-12">
+            <div class="col-md-12 canvassed">
                 <canvas id="can"
-                        style="border: solid black 1px;"
                         (mouseup)="mouseUpEvent($event)"
                         (mousedown)="mouseDownEvent($event)"
                         (mousemove)="mouseMoveEvent($event)"
                         (mouseout)="mouseOutEvent($event)"></canvas>
             </div>
             <div class="col-md-12">
-                <div class="row">
-                    <div>Choose Color: </div>
-                    <div style="width:20px;height:20px;background:green;" id="green"
+                <div class="row canvassed">
+                    <div class="col-md-3"><div>Choose Color: </div></div>
+                    <div class="col-md-9">
+                        <div class="color" id="blue"
                          (click)="color($event)"></div>
-                    <div style="width:20px;height:20px;background:blue;" id="blue"
+                        <div class="color" id="green"
                          (click)="color($event)"></div>
-                    <div style="width:20px;height:20px;background:red;" id="red"
+                        <div class="color" id="yellow"
                          (click)="color($event)"></div>
-                    <div style="width:20px;height:20px;background:yellow;" id="yellow"
+                        <div class="color" id="orange"
                          (click)="color($event)"></div>
-                    <div style="width:20px;height:20px;background:orange;" id="orange"
+                        <div class="color" id="red"
                          (click)="color($event)"></div>
-                    <div style="width:20px;height:20px;background:black;" id="black"
+                        <div class="color" id="purple"
                          (click)="color($event)"></div>
+                        <div class="color" id="brown"
+                         (click)="color($event)"></div>
+                        <div class="color" id="darkgray"
+                         (click)="color($event)"></div>
+                        <div class="color" id="black"
+                             (click)="color($event)"></div>
+                    </div>
+                </div>
+                <div class="row canvassed">
+                    <div class="col-md-3"><div>Eraser: </div></div>
+                    <div class="col-md-9">
+                        <div class="color" id="white"
+                             (click)="color($event)"></div></div>
                 </div>
                 <div class="row">
-                    <div>Eraser</div>
-                    <div style="width:20px;height:20px;background:white;border:2px solid;"
-                         id="white" (click)="color($event)"></div>
-                </div>
-                <div class="row">
-                    <input type="button" value="Play" id="btn" size="30" (click)="save()">
-                    <input type="button" value="Save" id="save_btn" size="30" (click)="saveInDB()">
-                    <input type="button" value="Clear" id="clr" size="23" (click)="erase()">
+                    <div class="padded"><input class="color-extended" type="button" value="Play" id="btn" size="30" (click)="save()"></div>
+                    <div class="padded"><input class="color-extended" type="button" value="Save" id="save_btn" size="30" (click)="saveInDB()"></div>
+                    <div class="padded"><input class="color-extended" type="button" value="Clear" id="clr" size="23" (click)="erase()"></div>
                 </div>
                 <!--<img id="canvasimg" style="border: solid black 1px;"/>-->
 

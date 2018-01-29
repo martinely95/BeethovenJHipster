@@ -135,8 +135,17 @@ export class HomeComponent implements OnInit {
             case 'yellow':
                 this.x = 'yellow';
                 break;
+            case 'purple':
+                this.x = 'purple';
+                break;
             case 'orange':
                 this.x = 'orange';
+                break;
+            case 'darkgray':
+                this.x = 'darkgray';
+                break;
+            case 'brown':
+                this.x = 'brown';
                 break;
             case 'black':
                 this.x = 'black';
@@ -172,7 +181,7 @@ export class HomeComponent implements OnInit {
     }
 
     erase() {
-        const m = confirm('Want to clear');
+        const m = confirm('Are you sure you want to clear the canvas?');
         if (m) {
             this.ctx.clearRect(0, 0, this.w, this.h);
             document.getElementById('canvasimg').style.display = 'none';
@@ -182,8 +191,8 @@ export class HomeComponent implements OnInit {
     save() {
         let dataURL: string;
         dataURL = this.canvas.toDataURL();
-        (document.getElementById('canvasimg') as HTMLImageElement).src = dataURL;
-        document.getElementById('canvasimg').style.display = 'inline';
+        // (document.getElementById('canvasimg') as HTMLImageElement).src = dataURL;
+        // document.getElementById('canvasimg').style.display = 'inline';
         this.sendData();
     }
 

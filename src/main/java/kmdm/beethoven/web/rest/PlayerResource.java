@@ -113,6 +113,9 @@ public class PlayerResource {
         instrumentColor.put("orange", 107);
         instrumentColor.put("yellow", 113);
         instrumentColor.put("blue", 118);
+        instrumentColor.put("purple", 5);
+        instrumentColor.put("brown", 128);
+        instrumentColor.put("darkgray", 80);
         instrumentColor.put("green", 127);
         JSONObject obj = new JSONObject(json);
         String objName = null;
