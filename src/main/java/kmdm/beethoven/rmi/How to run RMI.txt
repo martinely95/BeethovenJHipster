@@ -1,0 +1,3 @@
+How to run RMI
+1. Go to BeethovenJHipster\target\classes. Open cmd and run "rmiregistry" ("....path to jdk... \bin\rmiregistry")
+2. Run ConverterServer
