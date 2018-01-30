@@ -75,12 +75,15 @@ public class ConverterImpl extends UnicastRemoteObject implements Converter, Ser
         instrumentColor.put("orange", 107);
         instrumentColor.put("yellow", 113);
         instrumentColor.put("blue", 118);
+        instrumentColor.put("purple", 5);
+        instrumentColor.put("brown", 128);
+        instrumentColor.put("darkgray", 80);
         instrumentColor.put("green", 127);
         JSONObject obj = new JSONObject(json);
         String objName = null;
         Map<Integer, Boolean[][]> map = new HashMap<>();
 
-        Boolean[][] boolMatr = new Boolean[6][15];
+        Boolean[][] boolMatr = new Boolean[9][15];
 
         for (int i = 0; i < obj.names().length(); i++) {
             objName = obj.names().getString(i);
@@ -130,8 +133,7 @@ public class ConverterImpl extends UnicastRemoteObject implements Converter, Ser
         for (int cols = 0; cols < tmp[0].length; cols++) {
             for (int row = 0; row < tmp.length; row++) {
                 for(int color : colChannels.keySet()) {
-                    if(map.get(color)[row][cols])
-                    {
+                    if(map.get(color)[row][cols]) {
                         addNote(30+10*row, 50, 0);
                     } else {
                         addSilence( 10, 0);

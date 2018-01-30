@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
     modalRef: NgbModalRef;
     WIDTH = 600;
     HEIGHT = 400;
-    ROWS = 6;
+    ROWS = 9;
     COLS = 15;
     mouseDown = false;
     canvas;

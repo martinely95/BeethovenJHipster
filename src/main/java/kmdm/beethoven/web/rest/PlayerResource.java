@@ -105,30 +105,6 @@ public class PlayerResource {
         melodyEntity.setCreatedDateTime(DEFAULT_CREATED_DATE_TIME);
 
         melodyEntityService.save(melodyEntity);
-
-
-//        String host = "localhost";
-//
-//        try {
-//            String jvmName = ManagementFactory.getRuntimeMXBean().getName();
-//            System.out.println("==== JVM :" + jvmName);
-//
-//            System.out.println("locating RMI Registry");
-//            Registry registry = LocateRegistry.getRegistry(host);
-//
-//            System.out.println("looking up object: " + Converter.NAME);
-//            Converter checker = (Converter) registry.lookup(Converter.NAME);
-//            System.out.println("***********************************************");
-//            System.out.println("* invoking the remote method with a parameter *");
-//            System.out.println("***********************************************");
-//
-////            Sequence sequence = checker.convertJsonToSequence(json);
-// //           File file = new File("C:\\Users\\Koci\\Downloads\\Trash\\exampleout" + System.currentTimeMillis()+ ".mid");
-////            MidiSystem.write(sequence, 0, file);
-//
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
     }
 
 
@@ -159,6 +135,10 @@ public class PlayerResource {
             String midiFileName = null;
             String filePath = null;
             File dirToFile = new File(DOWNLOADS_FOLDER);
+            if (!dirToFile.exists()) {
+                dirToFile.mkdir();
+            }
+
             if (path == null || (path!= null && path.length() == 0)) {
                 midiFileName = checker.convertJsonToSequence(json);
 
@@ -229,7 +209,7 @@ public class PlayerResource {
         String objName = null;
         Map<Integer, Boolean[][]> map = new HashMap<>();
 
-        Boolean[][] boolMatr = new Boolean[6][15];
+        Boolean[][] boolMatr = new Boolean[9][15];
 
         for (int i = 0; i < obj.names().length(); i++) {
             objName = obj.names().getString(i);
