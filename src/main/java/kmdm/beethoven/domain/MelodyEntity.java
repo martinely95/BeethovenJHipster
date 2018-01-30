@@ -36,6 +36,9 @@ public class MelodyEntity implements Serializable {
     @ManyToOne
     private Profile profile;
 
+    @Column(name = "path")
+    private String path;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -113,6 +116,19 @@ public class MelodyEntity implements Serializable {
         return Objects.equals(getId(), melodyEntity.getId());
     }
 
+    public String getPath() {
+        return path;
+    }
+
+    public MelodyEntity path(String path) {
+        this.path = path;
+        return this;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hashCode(getId());
@@ -125,6 +141,7 @@ public class MelodyEntity implements Serializable {
             ", name='" + getName() + "'" +
             ", content='" + getContent() + "'" +
             ", createdDateTime='" + getCreatedDateTime() + "'" +
+            ", path='" + getPath() + "'" +
             "}";
     }
 }

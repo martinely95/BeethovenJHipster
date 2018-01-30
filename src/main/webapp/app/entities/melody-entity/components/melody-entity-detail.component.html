@@ -12,6 +12,8 @@
         <dd>
             <span>{{melodyEntity.content}}</span>
         </dd>
+        <input type="button" value="Play" id="btn" size="30" (click)="download()">
+
         <dt><span>Created Date Time</span></dt>
         <dd>
             <span>{{melodyEntity.createdDateTime | date:'medium'}}</span>
@@ -22,6 +24,11 @@
                 <a [routerLink]="['/profile', melodyEntity.profileId]">{{melodyEntity.profileId}}</a>
             </div>
         </dd>
+        <dt><span>Path</span></dt>
+        <dd>
+            <span>{{melodyEntity.path}}</span>
+        </dd>
+
     </dl>
 
     <button type="submit"

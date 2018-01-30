@@ -50,4 +50,29 @@ export class MelodyEntityDetailComponent implements OnInit, OnDestroy {
             (response) => this.load(this.melodyEntity.id)
         );
     }
+
+    getCSRF() {
+        const name = 'XSRF-TOKEN=';
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) !== -1) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return '';
+    }
+
+    download() {
+        const xhr = new XMLHttpRequest();
+        const url = '/api/beathoven/download' + this.melodyEntity.id;
+        xhr.open('GET', url, false);
+        xhr.setRequestHeader('Content-type', 'application/json');
+        xhr.setRequestHeader('X-XSRF-TOKEN', this.getCSRF());
+
+        xhr.send();
+    }
 }

@@ -7,6 +7,7 @@ export class MelodyEntity implements BaseEntity {
         public content?: string,
         public createdDateTime?: any,
         public profileId?: number,
+        public path?: string
     ) {
     }
 }

@@ -23,6 +23,8 @@ public class MelodyEntityDTO implements Serializable {
     @NotNull
     private ZonedDateTime createdDateTime;
 
+    private String path;
+
     private Long profileId;
 
     public Long getId() {
@@ -65,6 +67,14 @@ public class MelodyEntityDTO implements Serializable {
         this.profileId = profileId;
     }
 
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -93,6 +103,7 @@ public class MelodyEntityDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", content='" + getContent() + "'" +
             ", createdDateTime='" + getCreatedDateTime() + "'" +
+            ", path='" + getPath() + "'" +
             "}";
     }
 }
