@@ -134,9 +134,9 @@ public class ConverterImpl extends UnicastRemoteObject implements Converter, Ser
             for (int row = 0; row < tmp.length; row++) {
                 for(int color : colChannels.keySet()) {
                     if(map.get(color)[row][cols]) {
-                        addNote(30+10*row, 50, 0);
+                        addNote(30+10*row, 50, color);
                     } else {
-                        addSilence( 10, 0);
+                        addSilence( 10, color);
                     }
                 }
             }
