@@ -67,12 +67,13 @@ export class MelodyEntityDetailComponent implements OnInit, OnDestroy {
     }
 
     download() {
-        const xhr = new XMLHttpRequest();
-        const url = '/api/beathoven/download' + this.melodyEntity.id;
-        xhr.open('GET', url, false);
-        xhr.setRequestHeader('Content-type', 'application/json');
-        xhr.setRequestHeader('X-XSRF-TOKEN', this.getCSRF());
-
-        xhr.send();
+        // const xhr = new XMLHttpRequest();
+        const url = '/api/beathoven/download' + this.melodyEntity.id + '.midi';
+        window.open(url);
+        // xhr.open('GET', url, false);
+        // xhr.setRequestHeader('Content-type', 'application/json');
+        // xhr.setRequestHeader('X-XSRF-TOKEN', this.getCSRF());
+        //
+        // xhr.send();
     }
 }
