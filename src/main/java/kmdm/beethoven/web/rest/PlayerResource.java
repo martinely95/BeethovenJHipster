@@ -13,14 +13,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.Sequence;
-import javax.sound.midi.Sequencer;
+import javax.servlet.http.HttpServletResponse;
+import javax.sound.midi.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.management.ManagementFactory;
 import java.net.URISyntaxException;
+import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.time.ZoneId;
@@ -85,7 +87,7 @@ public class PlayerResource {
 
     @GetMapping(value = "/beathoven/download{id}", produces="audio/midi")
     @Timed
-    public void downloadMidiFile(@PathVariable Long id) throws URISyntaxException, JSONException {
+    public void downloadMidiFile(@PathVariable Long id, HttpServletResponse response) throws URISyntaxException, JSONException {
 
         MelodyEntityDTO melodyEntityDTO = melodyEntityService.findOne(id);
         String json = melodyEntityDTO.getContent();
@@ -128,11 +130,39 @@ public class PlayerResource {
             }
 
             File midiFile = new File(filePath);
-            Sequencer sequencer = MidiSystem.getSequencer();
-            Sequence sequence = MidiSystem.getSequence(midiFile);
-            sequencer.setSequence(sequence);
-            sequencer.open();
-            sequencer.start();
+
+            try (OutputStream out = response.getOutputStream()) {
+                Path path2 = midiFile.toPath();
+                Files.copy(path2, out);
+                out.flush();
+
+                String mimeType = URLConnection.guessContentTypeFromName(midiFile.getName());
+                String contentDisposition = String.format("attachment; filename=%s", midiFile.getName());
+                int fileSize = Long.valueOf(midiFile.length()).intValue();
+
+                response.setContentType(mimeType);
+                response.setHeader("Content-Disposition", contentDisposition);
+                response.setContentLength(fileSize);
+            } catch (IOException e) {
+                // handle exception
+            }
+
+            System.out.println("Playing.....");
+            Sequencer sequencer = null;
+            Sequence sequence = null;
+            try {
+                sequencer = MidiSystem.getSequencer();
+                sequence = MidiSystem.getSequence(midiFile);
+                sequencer.setSequence(sequence);
+                sequencer.open();
+                sequencer.start();
+            } catch (MidiUnavailableException e) {
+                e.printStackTrace();
+            } catch (InvalidMidiDataException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             while(true) {
                 if(sequencer.isRunning()) {
@@ -148,6 +178,7 @@ public class PlayerResource {
 
             sequencer.stop();
             sequencer.close();
+
 
         } catch (Exception ex) {
             ex.printStackTrace();
