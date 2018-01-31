@@ -2,7 +2,10 @@ package kmdm.beethoven.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
+import kmdm.beethoven.domain.MelodyEntity;
+import kmdm.beethoven.repository.MelodyEntityRepository;
 import kmdm.beethoven.service.MelodyEntityService;
+import kmdm.beethoven.service.UserService;
 import kmdm.beethoven.service.dto.MelodyEntityDTO;
 import kmdm.beethoven.web.rest.errors.BadRequestAlertException;
 import kmdm.beethoven.web.rest.util.HeaderUtil;
@@ -16,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -34,6 +38,9 @@ public class MelodyEntityResource {
     private static final String ENTITY_NAME = "melodyEntity";
 
     private final MelodyEntityService melodyEntityService;
+
+    @Inject
+    private MelodyEntityRepository melodyEntityRepository;
 
     public MelodyEntityResource(MelodyEntityService melodyEntityService) {
         this.melodyEntityService = melodyEntityService;
@@ -81,6 +88,9 @@ public class MelodyEntityResource {
             .body(result);
     }
 
+    @Inject
+    UserService userService;
+
     /**
      * GET  /melody-entities : get all the melodyEntities.
      *
@@ -89,9 +99,10 @@ public class MelodyEntityResource {
      */
     @GetMapping("/melody-entities")
     @Timed
-    public ResponseEntity<List<MelodyEntityDTO>> getAllMelodyEntities(Pageable pageable) {
+    public ResponseEntity<List<MelodyEntity>> getAllMelodyEntities(Pageable pageable) throws Exception {
         log.debug("REST request to get a page of MelodyEntities");
-        Page<MelodyEntityDTO> page = melodyEntityService.findAll(pageable);
+
+        Page<MelodyEntity> page = melodyEntityRepository.findAllByProfileId(pageable, userService.getCurrentlyLoggedInProfile().getId());
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/melody-entities");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
