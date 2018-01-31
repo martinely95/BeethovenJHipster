@@ -1,24 +1,15 @@
 package kmdm.beethoven.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import io.github.jhipster.web.util.ResponseUtil;
-import kmdm.beethoven.domain.Profile;
-import kmdm.beethoven.domain.User;
-import kmdm.beethoven.repository.MelodyEntityRepository;
-import kmdm.beethoven.repository.ProfileRepository;
 import kmdm.beethoven.rmi.Converter;
-import kmdm.beethoven.rmi.MidiResponse;
 import kmdm.beethoven.service.MelodyEntityService;
 import kmdm.beethoven.service.UserService;
 import kmdm.beethoven.service.dto.MelodyEntityDTO;
-import kmdm.beethoven.service.dto.ProfileDTO;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -26,17 +17,18 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.net.URISyntaxException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.time.Instant;
-import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
+
+//import kmdm.beethoven.rmi.MidiResponse;
 
 /**
  * REST controller for managing MelodyEntity.
@@ -49,8 +41,6 @@ public class PlayerResource {
 
     private static final String ENTITY_NAME = "melodyEntity";
 
-    private static final ZonedDateTime DEFAULT_CREATED_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-
     private final MelodyEntityService melodyEntityService;
 
     private static String DOWNLOADS_FOLDER = ".\\src\\main\\downloads\\";
@@ -58,8 +48,7 @@ public class PlayerResource {
     @Inject
     UserService userService;
 
-    @Inject
-    ProfileRepository profileRepository;
+
 
     public PlayerResource(MelodyEntityService melodyEntityService) {
         this.melodyEntityService = melodyEntityService;
@@ -83,30 +72,15 @@ public class PlayerResource {
 
     @PostMapping("/beathoven/saveInDB")
     @Timed
-    public void persistMelodyEntity(@RequestBody String json) throws URISyntaxException, JSONException {
-
-        Optional<User> userOptional = userService.getUserWithAuthorities();
-        Optional<Profile> profileOptional;
-        if (userOptional.isPresent()) {
-            profileOptional = profileRepository.findOneByUserId(userOptional.get().getId());
-        } else {
-            return;
-        }
-
-        Profile profile = null;
-        if (profileOptional.isPresent()) {
-            profile = profileOptional.get();
-        }
-
+    public void persistMelodyEntity(@RequestBody String json) throws Exception {
         MelodyEntityDTO melodyEntity = new MelodyEntityDTO();
         melodyEntity.setName(ENTITY_NAME);
         melodyEntity.setContent(json);
-        melodyEntity.setProfileId(profile.getId());
-        melodyEntity.setCreatedDateTime(DEFAULT_CREATED_DATE_TIME);
+        melodyEntity.setProfileId(userService.getCurrentlyLoggedInProfile().getId());
+        melodyEntity.setCreatedDateTime(ZonedDateTime.now(ZoneId.systemDefault()));
 
         melodyEntityService.save(melodyEntity);
     }
-
 
 
     @GetMapping(value = "/beathoven/download{id}", produces="audio/midi")

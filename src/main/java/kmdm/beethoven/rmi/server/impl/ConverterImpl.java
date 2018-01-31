@@ -1,18 +1,20 @@
 package kmdm.beethoven.rmi.server.impl;
 
-import java.io.*;
+import kmdm.beethoven.rmi.Converter;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import javax.sound.midi.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.sound.midi.*;
-
-import kmdm.beethoven.rmi.Converter;
-import kmdm.beethoven.rmi.MidiResponse;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+//import kmdm.beethoven.rmi.MidiResponse;
 
 public class ConverterImpl extends UnicastRemoteObject implements Converter, Serializable{
 

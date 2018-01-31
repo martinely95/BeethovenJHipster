@@ -1,16 +1,17 @@
 package kmdm.beethoven.service;
 
+import kmdm.beethoven.config.Constants;
 import kmdm.beethoven.domain.Authority;
+import kmdm.beethoven.domain.Profile;
 import kmdm.beethoven.domain.User;
 import kmdm.beethoven.repository.AuthorityRepository;
 import kmdm.beethoven.repository.PersistentTokenRepository;
-import kmdm.beethoven.config.Constants;
+import kmdm.beethoven.repository.ProfileRepository;
 import kmdm.beethoven.repository.UserRepository;
 import kmdm.beethoven.security.AuthoritiesConstants;
 import kmdm.beethoven.security.SecurityUtils;
-import kmdm.beethoven.service.util.RandomUtil;
 import kmdm.beethoven.service.dto.UserDTO;
-
+import kmdm.beethoven.service.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -20,10 +21,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
+import javax.inject.Inject;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -267,4 +272,23 @@ public class UserService {
         return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
     }
 
+    @Inject
+    ProfileRepository profileRepository;
+
+    public Profile getCurrentlyLoggedInProfile() throws Exception {
+        Optional<User> userOptional = getUserWithAuthorities();
+        Optional<Profile> profileOptional;
+        if (userOptional.isPresent()) {
+            profileOptional = profileRepository.findOneByUserId(userOptional.get().getId());
+        } else {
+            throw new Exception("No user is logged in");
+        }
+
+        Profile profile = null;
+        if (profileOptional.isPresent()) {
+            profile = profileOptional.get();
+        }
+
+        return profile;
+    }
 }
