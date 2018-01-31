@@ -239,7 +239,7 @@ export class HomeComponent implements OnInit {
             this.prevX = this.currX;
             this.prevY = this.currY;
             this.currX = e.clientX
-                - 0.33 * this._el.nativeElement.offsetWidth + 30;
+                - 0.305 * this._el.nativeElement.offsetWidth;
             this.currY = e.clientY - this._el.nativeElement.getBoundingClientRect().top;
 
             this.flag = true;
@@ -260,7 +260,7 @@ export class HomeComponent implements OnInit {
                 this.prevX = this.currX;
                 this.prevY = this.currY;
                 this.currX = e.clientX
-                    - 0.33 * this._el.nativeElement.offsetWidth + 30;
+                    - 0.305 * this._el.nativeElement.offsetWidth;
                 this.currY = e.clientY - this._el.nativeElement.getBoundingClientRect().top;
                 this.draw();
             }
